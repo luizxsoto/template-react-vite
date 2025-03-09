@@ -1,0 +1,7 @@
+export const CELLPHONE_LENGTH = 11
+
+export const TELEPHONE_LENGTH = 10
+
+export const MASKED_CELLPHONE_LENGTH = 15
+
+export const MASKED_TELEPHONE_LENGTH = 14

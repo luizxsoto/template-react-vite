@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+
+if [ $2 = "merge" ] || [ $2 = "commit" ]; then
+  exit 0
+fi
+
+ISSUE_KEY=`git branch | grep -o "\*\(.*\)" | grep -o "/\(TEMPLATE\|DIGITAL\)-[0-9]\+/" | grep -o "\(TEMPLATE\|DIGITAL\)-[0-9]\+"`
+
+if [ ! $ISSUE_KEY ]; then
+  echo "⚠️ ERROR - Branch name must have issue key like: feature/(TEMPLATE|DIGITAL)-123/any-issue"
+  exit 1
+fi
+
+TEMP=`mktemp /tmp/commitmsg-XXXXX`
+(echo "$(cat $1)") > $TEMP
+(echo "") >> $TEMP
+(echo "") >> $TEMP
+(echo "ClickUp Issue: $ISSUE_KEY") >> $TEMP
+cat $TEMP > $1
